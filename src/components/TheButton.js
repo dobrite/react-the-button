@@ -2,41 +2,23 @@ import React from "react/addons"
 import ReactART from "react-art"
 
 const { Group, Shape, Surface } = ReactART
+const config = {
+  centerX: 200,
+  centerY: 200,
+  startX: 200,
+  startY: 20,
+  arcRadiiX: 180,
+  arcRadiiY: 180,
+  clockwiseFlag: 1
+}
 
 class TheButton extends React.Component {
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      centerX: 200,
-      centerY: 200,
-      startX: 200,
-      startY: 20,
-      arcRadiiX: 180,
-      arcRadiiY: 180,
-      count: 60,
-      longArcFlag: 0,
-      clockwiseFlag: 1
-    }
-  }
-
-  componentWillMount() {
-    this.ws = new window.WebSocket("wss://wss.redditmedia.com/thebutton?h=5d3af0ae97eb4d9f1cfcf205816d5f349343f524&e=1428958634")
-  }
-
-  componentDidMount() {
-    this.ws.onmessage = this.handleMessage.bind(this)
-  }
-
-  handleMessage(e) {
-    this.setState({ count: JSON.parse(e.data).payload.seconds_left })
-  }
-
   get radians() {
     return 2 * Math.PI
   }
 
   get slice() {
-    return (this.radians * (45 - this.state.count)) / 60
+    return (this.radians * (45 - this.props.count)) / 60
   }
 
   get sin() {
@@ -50,19 +32,19 @@ class TheButton extends React.Component {
   }
 
   get x() {
-    return this.cos * this.state.arcRadiiX + this.state.centerX
+    return this.cos * config.arcRadiiX + config.centerX
   }
 
   get y() {
-    return this.sin * this.state.arcRadiiX + this.state.centerY
+    return this.sin * config.arcRadiiX + config.centerY
   }
 
   get longArcFlag() {
-    return (this.state.count < 30) ? 1 : 0
+    return (this.props.count < 30) ? 1 : 0
   }
 
   get color() {
-    const count = this.state.count
+    const count = this.props.count
 
     if (count > 51) {
       return "#820080" // purple
@@ -81,15 +63,15 @@ class TheButton extends React.Component {
 
   get path() {
     return `
-      M${this.state.centerX},
-        ${this.state.centerY}
-      L${this.state.startX},
-        ${this.state.startY}
-      A${this.state.arcRadiiX},
-        ${this.state.arcRadiiY}
+      M${config.centerX},
+        ${config.centerY}
+      L${config.startX},
+        ${config.startY}
+      A${config.arcRadiiX},
+        ${config.arcRadiiY}
       0
       ${this.longArcFlag},
-        ${this.state.clockwiseFlag}
+        ${config.clockwiseFlag}
       ${this.x},
         ${this.y}
       Z

@@ -1,9 +1,9 @@
 "use strict"
 
 import React from "react/addons"
-import TheButton from "./components/TheButton"
+import App from "./components/App"
 
 React.render(
-  <TheButton />,
+  <App />,
   document.getElementById("main")
 )
