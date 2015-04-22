@@ -20,6 +20,10 @@ class App extends React.Component {
     this.ws.onmessage = this.handleMessage.bind(this)
   }
 
+  componentDidUnmount() {
+    this.ws.close()
+  }
+
   handleMessage(e) {
     this.setState({
       count: JSON.parse(e.data).payload.seconds_left
