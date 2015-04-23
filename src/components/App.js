@@ -26,12 +26,16 @@ class App extends React.Component {
 
   handleMessage(e) {
     this.setState({
-      count: JSON.parse(e.data).payload.seconds_left
+      count: this.secondsLeft(e.data)
     })
   }
 
   get url() {
     return `wss://wss.redditmedia.com/thebutton?h=${h}&e=${e}`
+  }
+
+  secondsLeft(data) {
+    return JSON.parse(data).payload.seconds_left
   }
 
   render() {
