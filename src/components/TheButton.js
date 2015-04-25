@@ -21,12 +21,8 @@ class TheButton extends React.Component {
     return (this.radians * (45 - this.props.count)) / 60
   }
 
-  get x() {
-    return Math.cos(this.slice) * config.arcRadiiX + config.centerX
-  }
-
-  get y() {
-    return Math.sin(this.slice) * config.arcRadiiX + config.centerY
+  getCoord(method, center) {
+    return method(this.slice) * config.arcRadiiX + center
   }
 
   get longArcFlag() {
@@ -62,8 +58,8 @@ class TheButton extends React.Component {
       0
       ${this.longArcFlag},
         ${config.clockwiseFlag}
-      ${this.x},
-        ${this.y}
+      ${this.getCoord(Math.cos, config.centerX)},
+        ${this.getCoord(Math.sin, config.centerY)}
       Z
     `
   }
