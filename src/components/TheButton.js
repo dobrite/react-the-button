@@ -43,7 +43,7 @@ class TheButton extends React.Component {
     } else if (count > 11) {
       return "#E59500" // orange
     } else {
-      return "#E50000" // red
+      return "#E50000" // cheaters
     }
   }
 
