@@ -2,6 +2,7 @@ import React from "react/addons"
 import ReactART from "react-art"
 
 const { Group, Shape, Surface } = ReactART
+
 const config = {
   centerX: 200,
   centerY: 200,
@@ -11,6 +12,7 @@ const config = {
   arcRadiiY: 180,
   clockwiseFlag: 1
 }
+
 const colors = {
   purple: "#820080",
   blue: "#0083C7",
